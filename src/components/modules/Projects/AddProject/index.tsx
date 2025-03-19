@@ -22,6 +22,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { addProject } from "@/app/services/Project";
+import { toast } from "sonner";
 
 export default function AddProjectForm() {
   const form = useForm({
@@ -72,7 +74,18 @@ export default function AddProjectForm() {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    try {
+      const response = await addProject(data);
+      console.log(response);
+
+      if (response?.success) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wring!");
+    }
   };
 
   return (

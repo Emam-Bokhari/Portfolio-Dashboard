@@ -5,7 +5,7 @@ import SectionTitle from "@/components/shared/sectionTitle";
 export default async function ProjectsPage() {
   const { data } = await getAllProjects();
   const projects = data ?? [];
-  console.log(projects);
+
   return (
     <div className="w-full">
       <SectionTitle title="Projects" />

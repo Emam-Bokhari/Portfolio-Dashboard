@@ -15,7 +15,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ChevronDown, MoreHorizontal } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -38,6 +37,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { TProject } from "@/app/types";
+import { deleteProjectById } from "@/app/services/Project";
+import { toast } from "sonner";
 
 export default function ManageProject({ projects }: { projects: TProject[] }) {
   // Table states
@@ -49,7 +50,19 @@ export default function ManageProject({ projects }: { projects: TProject[] }) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  console.log(projects);
+  // delete a project
+  const handleDeleteProject = async (id: string) => {
+    try {
+      const response = await deleteProjectById(id);
+      if (response?.success) {
+        toast.success("Project deleted successfully");
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wrong!");
+    }
+  };
 
   const columns: ColumnDef<TProject>[] = [
     {
@@ -155,14 +168,17 @@ export default function ManageProject({ projects }: { projects: TProject[] }) {
 
               <DropdownMenuItem>
                 <Link
-                  href={`/dashboard/projects/update-project/${project?._id}`}
+                  href={`/projects/update-project/${project?._id}`}
                   className="flex gap-2"
                 >
                   <FaEdit className="mr-2 text-amber-500" /> Edit
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => handleDeleteProject(project?._id)}
+                className="cursor-pointer"
+              >
                 <FaTrash className="mr-2 text-red-600" />
                 Delete
               </DropdownMenuItem>
