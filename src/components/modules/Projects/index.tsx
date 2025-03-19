@@ -158,10 +158,7 @@ export default function ManageProject({ projects }: { projects: TProject[] }) {
               <DropdownMenuSeparator />
 
               <DropdownMenuItem>
-                <Link
-                  href={`/dashboard/projects/project-details/${project?._id}`}
-                  className="flex gap-2"
-                >
+                <Link href={`/projects/${project?._id}`} className="flex gap-2">
                   <FaEye className="mr-2 text-green-600" /> View Details
                 </Link>
               </DropdownMenuItem>
