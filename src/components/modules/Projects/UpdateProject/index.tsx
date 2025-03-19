@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,10 +10,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Fragment } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { projectSchema } from "./project.validation";
 import {
   Select,
   SelectContent,
@@ -22,33 +21,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { addProject } from "@/app/services/Project";
 import { toast } from "sonner";
+import { TProject } from "@/app/types";
+import { updateProjectById } from "@/app/services/Project";
 
-export default function AddProjectForm() {
-  const form = useForm({
-    resolver: zodResolver(projectSchema),
-    defaultValues: {
-      title: "",
-      thumbnail: "",
-      description: "",
-      projectRole: "",
-      technologiesUsed: [],
-      challengesFaced: "",
-      solution: "",
-      keyFeatures: [],
-      liveLink: "",
-      frontendSourceCode: "",
-      backendSourceCode: "",
-      apiDocumentation: "",
-      projectGoals: "",
-      futureImprovements: "",
-      securityConsiderations: "",
-      projectTimeline: "",
-      isFeatured: false,
-    },
-  });
-
+export default function UpdateProjectForm({ project }: { project: TProject }) {
   const roles = [
     { value: "frontend", label: "Frontend Developer" },
     { value: "backend", label: "Backend Developer" },
@@ -69,14 +46,36 @@ export default function AddProjectForm() {
     { value: "other", label: "other" },
   ];
 
+  const form = useForm({
+    defaultValues: {
+      title: project?.title || "",
+      thumbnail: project?.thumbnail || "",
+      description: project?.description || "",
+      projectRole: project?.projectRole || "",
+      technologiesUsed: project?.technologiesUsed || [],
+      challengesFaced: project?.challengesFaced || "",
+      solution: project?.solution || "",
+      keyFeatures: project?.keyFeatures || [],
+      liveLink: project?.liveLink || "",
+      frontendSourceCode: project?.frontendSourceCode || "",
+      backendSourceCode: project?.backendSourceCode || "",
+      apiDocumentation: project?.apiDocumentation || "",
+      projectGoals: project?.projectGoals || "",
+      futureImprovements: project?.futureImprovements || "",
+      securityConsiderations: project?.securityConsiderations || "",
+      projectTimeline: project?.projectTimeline || "",
+      isFeatured: project?.isFeatured || false,
+    },
+  });
+
   const {
     formState: { isSubmitting },
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const response = await addProject(data);
-
+      const response = await updateProjectById(project?._id, data);
+      console.log(response);
       if (response?.success) {
         toast.success(response?.message);
       } else {
@@ -107,6 +106,7 @@ export default function AddProjectForm() {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter your project title"
                         />
                       </FormControl>
@@ -127,7 +127,11 @@ export default function AddProjectForm() {
                         Thumbnail URL <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Enter thumbnail URL" />
+                        <Input
+                          {...field}
+                          value={field.value || ""}
+                          placeholder="Enter thumbnail URL"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -149,6 +153,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter project description"
                     />
                   </FormControl>
@@ -205,6 +210,7 @@ export default function AddProjectForm() {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter project timeline"
                         />
                       </FormControl>
@@ -216,7 +222,6 @@ export default function AddProjectForm() {
             </div>
 
             {/* Technologies Used */}
-
             <div className="space-y-2">
               <Label htmlFor="technologiesUsed" className="text-white">
                 Technologies Used<span className="text-red-500 ml-1">*</span>
@@ -259,6 +264,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-20"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter key features (comma-separated)"
                       onChange={(e) => {
                         const value = e.target.value;
@@ -288,6 +294,7 @@ export default function AddProjectForm() {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter live project link"
                         />
                       </FormControl>
@@ -311,6 +318,7 @@ export default function AddProjectForm() {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter frontend source code URL"
                         />
                       </FormControl>
@@ -334,6 +342,7 @@ export default function AddProjectForm() {
                         <Input
                           type="url"
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter backend source code URL"
                         />
                       </FormControl>
@@ -355,6 +364,7 @@ export default function AddProjectForm() {
                         <Input
                           type="url"
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter API documentation URL"
                         />
                       </FormControl>
@@ -376,6 +386,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter project goals"
                     />
                   </FormControl>
@@ -395,6 +406,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter project challenges faced"
                     />
                   </FormControl>
@@ -413,6 +425,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter solution"
                     />
                   </FormControl>
@@ -432,6 +445,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter future improvements"
                     />
                   </FormControl>
@@ -451,6 +465,7 @@ export default function AddProjectForm() {
                     <Textarea
                       className="min-h-52"
                       {...field}
+                      value={field.value || ""}
                       placeholder="Enter security considerations"
                     />
                   </FormControl>
@@ -485,7 +500,7 @@ export default function AddProjectForm() {
               className="w-full bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"
               disabled={isSubmitting}
             >
-              Add Project
+              {isSubmitting ? "Saving" : "Update Project"}
             </Button>
           </div>
         </form>
