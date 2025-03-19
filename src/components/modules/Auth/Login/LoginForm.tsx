@@ -6,7 +6,7 @@ import { Lock, Mail } from "lucide-react";
 export default function LoginForm() {
   return (
     <div className="flex items-center justify-center min-h-screen ">
-      <Card className="w-96 shadow-xl dark:bg-[#140C1C] ">
+      <Card className="sm:w-96 shadow-xl dark:bg-[#140C1C] ">
         <CardHeader>
           <CardTitle className="text-center text-xl text-[#110E18] dark:text-[#FFFFFF]">
             Admin Login
