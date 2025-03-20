@@ -12,7 +12,7 @@ A user-friendly, interactive dashboard built for portfolio management. This appl
 ## Technologies Used
 
 - **Frontend**: Next.js, ShadcnUi, Tailwind CSS.
-- **Authentication**: JWT (JSON Web Tokens)
+- **Custom Authentication**: JWT (JSON Web Tokens)
 - **Deployment**: Deployed on [Your Hosting Platform]
 
 ## Installation
