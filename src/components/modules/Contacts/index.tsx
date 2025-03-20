@@ -37,6 +37,8 @@ import {
 } from "@/components/ui/table";
 import Link from "next/link";
 import { TContact } from "@/app/types";
+import { deleteContactById } from "@/app/services/Contact";
+import { toast } from "sonner";
 
 export default function ManageContact({ contacts }: { contacts: TContact[] }) {
   // Table states
@@ -47,6 +49,20 @@ export default function ManageContact({ contacts }: { contacts: TContact[] }) {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  // delete a contact
+  const handleDeleteContact = async (id: string) => {
+    try {
+      const response = await deleteContactById(id);
+      if (response?.success) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wrong!");
+    }
+  };
 
   const columns: ColumnDef<TContact>[] = [
     {
@@ -95,7 +111,10 @@ export default function ManageContact({ contacts }: { contacts: TContact[] }) {
                   <FaEye className="mr-2 text-green-600" /> View Details
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => handleDeleteContact(contact?._id)}
+                className="cursor-pointer"
+              >
                 <FaTrash className="mr-2 text-red-600" />
                 Delete
               </DropdownMenuItem>
