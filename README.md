@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dashboard Application
 
-## Getting Started
+A user-friendly, interactive dashboard built for portfolio management. This application allows you to manage and visualize key data points in a clean and organized way. Designed with a responsive interface for all devices, this dashboard helps in showcasing portfolio, tracking analytics, and much more.
 
-First, run the development server:
+## Features
+
+- **User Authentication**: Secure login and session management.
+- **Real-time Data**: Table for display blogs, projects, and contacts.
+- **Responsive Design**: Optimized for both mobile and desktop views.
+- **Modern UI**: Built with the latest web technologies.
+
+## Technologies Used
+
+- **Frontend**: Next.js, ShadcnUi, Tailwind CSS.
+- **Custom Authentication**: JWT (JSON Web Tokens)
+- **Deployment**: Deployed on [Your Hosting Platform]
+
+## Installation
+
+### Clone the repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Emam-Bokhari/Portfolio-Dashboard.git
+cd Portfolio-Dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Install Dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3️⃣ Setup Environment Variables
 
-## Learn More
+Create a `.env` file in the root directory and add:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+NEXT_PUBLIC_BASE_API=https://portfolio-backend-tau-ten.vercel.app/api/v1
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎯 Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Developed with ❤️ by Moshfiqur Rahman (Emam Bokhari).
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🚀 Happy Coding! 🎯
