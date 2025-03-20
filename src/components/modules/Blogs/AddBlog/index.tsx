@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,6 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Fragment } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { blogSchema } from "./blog.validation";
+import Tiptap from "./Tiptap";
+import { addBlog } from "@/app/services/Blog";
+import { toast } from "sonner";
 
 export default function AddBlogForm() {
   const form = useForm({
@@ -34,7 +38,17 @@ export default function AddBlogForm() {
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    try {
+      const response = await addBlog(data);
+
+      if (response?.success) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wring!");
+    }
   };
 
   return (
@@ -42,9 +56,8 @@ export default function AddBlogForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-4">
-            {/* title and thumbnail */}
+            {/* Title and Thumbnail */}
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Title */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -65,9 +78,7 @@ export default function AddBlogForm() {
                   )}
                 />
               </div>
-
-              {/* Thumbnail */}
-              <div className=" flex-1">
+              <div className="flex-1">
                 <FormField
                   control={form.control}
                   name="thumbnail"
@@ -86,9 +97,8 @@ export default function AddBlogForm() {
               </div>
             </div>
 
-            {/* category and author name */}
+            {/* Category and Author Name */}
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* category */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -109,9 +119,7 @@ export default function AddBlogForm() {
                   )}
                 />
               </div>
-
-              {/* author name */}
-              <div className=" flex-1">
+              <div className="flex-1">
                 <FormField
                   control={form.control}
                   name="authorName"
@@ -130,7 +138,7 @@ export default function AddBlogForm() {
               </div>
             </div>
 
-            {/* introduction */}
+            {/* Introduction */}
             <FormField
               control={form.control}
               name="introduction"
@@ -161,10 +169,10 @@ export default function AddBlogForm() {
                     Main Content <span className="text-red-500">*</span>
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="min-h-52"
-                      {...field}
-                      placeholder="Enter project description"
+                    <Tiptap
+                      mainContent={field.value}
+                      onChange={field.onChange}
+                      placeholder="Write the main content of your blog here"
                     />
                   </FormControl>
                   <FormMessage />
@@ -172,7 +180,7 @@ export default function AddBlogForm() {
               )}
             />
 
-            {/* Key Features */}
+            {/* Tags */}
             <FormField
               control={form.control}
               name="tags"
