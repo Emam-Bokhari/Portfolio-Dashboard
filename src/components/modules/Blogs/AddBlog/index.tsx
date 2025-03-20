@@ -18,8 +18,10 @@ import { blogSchema } from "./blog.validation";
 import Tiptap from "./Tiptap";
 import { addBlog } from "@/app/services/Blog";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function AddBlogForm() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(blogSchema),
     defaultValues: {
@@ -43,6 +45,7 @@ export default function AddBlogForm() {
 
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/blogs");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -56,7 +59,7 @@ export default function AddBlogForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-4">
-            {/* Title and Thumbnail */}
+            {/* title and thumbnail */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -97,7 +100,7 @@ export default function AddBlogForm() {
               </div>
             </div>
 
-            {/* Category and Author Name */}
+            {/* category and author name */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -138,7 +141,7 @@ export default function AddBlogForm() {
               </div>
             </div>
 
-            {/* Introduction */}
+            {/* introduction */}
             <FormField
               control={form.control}
               name="introduction"
@@ -180,7 +183,7 @@ export default function AddBlogForm() {
               )}
             />
 
-            {/* Tags */}
+            {/* tags */}
             <FormField
               control={form.control}
               name="tags"
@@ -206,7 +209,7 @@ export default function AddBlogForm() {
               )}
             />
 
-            {/* Submit Button */}
+            {/* submit button */}
             <Button
               type="submit"
               className="w-full bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"

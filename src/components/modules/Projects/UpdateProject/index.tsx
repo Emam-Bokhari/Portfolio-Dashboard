@@ -24,8 +24,11 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { TProject } from "@/app/types";
 import { updateProjectById } from "@/app/services/Project";
+import { useRouter } from "next/navigation";
 
 export default function UpdateProjectForm({ project }: { project: TProject }) {
+  const router = useRouter();
+
   const roles = [
     { value: "frontend", label: "Frontend Developer" },
     { value: "backend", label: "Backend Developer" },
@@ -75,9 +78,10 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const response = await updateProjectById(project?._id, data);
-      console.log(response);
+
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/projects");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -93,7 +97,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
           <div className="space-y-4">
             {/* title and thumbnail */}
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Title */}
+              {/* title */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -116,7 +120,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
                 />
               </div>
 
-              {/* Thumbnail */}
+              {/* thumbnail */}
               <div className=" flex-1">
                 <FormField
                   control={form.control}
@@ -140,7 +144,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               </div>
             </div>
 
-            {/* Description */}
+            {/* description */}
             <FormField
               control={form.control}
               name="description"
@@ -221,7 +225,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               </div>
             </div>
 
-            {/* Technologies Used */}
+            {/* technologies used */}
             <div className="space-y-2">
               <Label htmlFor="technologiesUsed" className="text-white">
                 Technologies Used<span className="text-red-500 ml-1">*</span>
@@ -251,7 +255,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               </select>
             </div>
 
-            {/* Key Features */}
+            {/* key features */}
             <FormField
               control={form.control}
               name="keyFeatures"
@@ -281,7 +285,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
             />
 
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Live Link */}
+              {/* live link */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -304,7 +308,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
                 />
               </div>
 
-              {/* Frontend Source Code */}
+              {/* frontend source code */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -330,7 +334,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
             </div>
 
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Backend Source Code */}
+              {/* backend source code */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -352,7 +356,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
                 />
               </div>
 
-              {/* api Documentation */}
+              {/* api documentation */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -375,7 +379,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               </div>
             </div>
 
-            {/* Project Goals */}
+            {/* project goals */}
             <FormField
               control={form.control}
               name="projectGoals"
@@ -434,7 +438,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               )}
             />
 
-            {/* Future Improvements */}
+            {/* future improvements */}
             <FormField
               control={form.control}
               name="futureImprovements"
@@ -454,7 +458,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               )}
             />
 
-            {/* Security Considerations */}
+            {/* security considerations */}
             <FormField
               control={form.control}
               name="securityConsiderations"
@@ -474,7 +478,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               )}
             />
 
-            {/* Featured */}
+            {/* featured */}
             <FormField
               control={form.control}
               name="isFeatured"
@@ -494,7 +498,7 @@ export default function UpdateProjectForm({ project }: { project: TProject }) {
               )}
             />
 
-            {/* Submit Button */}
+            {/* submit button */}
             <Button
               type="submit"
               className="w-full bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"

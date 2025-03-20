@@ -25,8 +25,10 @@ import {
 import { Label } from "@/components/ui/label";
 import { addProject } from "@/app/services/Project";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function AddProjectForm() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(projectSchema),
     defaultValues: {
@@ -80,6 +82,7 @@ export default function AddProjectForm() {
 
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/projects");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -95,7 +98,7 @@ export default function AddProjectForm() {
           <div className="space-y-4">
             {/* title and thumbnail */}
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Title */}
+              {/* title */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -117,7 +120,7 @@ export default function AddProjectForm() {
                 />
               </div>
 
-              {/* Thumbnail */}
+              {/* thumbnail */}
               <div className=" flex-1">
                 <FormField
                   control={form.control}
@@ -137,7 +140,7 @@ export default function AddProjectForm() {
               </div>
             </div>
 
-            {/* Description */}
+            {/* description */}
             <FormField
               control={form.control}
               name="description"
@@ -159,7 +162,7 @@ export default function AddProjectForm() {
             />
 
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Project Role */}
+              {/* project role */}
 
               <div className="flex-1">
                 <FormField
@@ -193,7 +196,7 @@ export default function AddProjectForm() {
                 />
               </div>
 
-              {/* Project Timeline */}
+              {/* project timeline */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -216,7 +219,7 @@ export default function AddProjectForm() {
               </div>
             </div>
 
-            {/* Technologies Used */}
+            {/* technologies used */}
 
             <div className="space-y-2">
               <Label htmlFor="technologiesUsed" className="text-white">
@@ -247,7 +250,7 @@ export default function AddProjectForm() {
               </select>
             </div>
 
-            {/* Key Features */}
+            {/* key features */}
             <FormField
               control={form.control}
               name="keyFeatures"
@@ -276,7 +279,7 @@ export default function AddProjectForm() {
             />
 
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Live Link */}
+              {/* live link */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -298,7 +301,7 @@ export default function AddProjectForm() {
                 />
               </div>
 
-              {/* Frontend Source Code */}
+              {/* frontend source code */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -323,7 +326,7 @@ export default function AddProjectForm() {
             </div>
 
             <div className="flex flex-col xl:flex-row gap-5">
-              {/* Backend Source Code */}
+              {/* backend source code */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -344,7 +347,7 @@ export default function AddProjectForm() {
                 />
               </div>
 
-              {/* api Documentation */}
+              {/* api documentation */}
               <div className="flex-1">
                 <FormField
                   control={form.control}
@@ -366,7 +369,7 @@ export default function AddProjectForm() {
               </div>
             </div>
 
-            {/* Project Goals */}
+            {/* project goals */}
             <FormField
               control={form.control}
               name="projectGoals"
@@ -422,7 +425,7 @@ export default function AddProjectForm() {
               )}
             />
 
-            {/* Future Improvements */}
+            {/* future improvements */}
             <FormField
               control={form.control}
               name="futureImprovements"
@@ -441,7 +444,7 @@ export default function AddProjectForm() {
               )}
             />
 
-            {/* Security Considerations */}
+            {/* security considerations */}
             <FormField
               control={form.control}
               name="securityConsiderations"
@@ -460,7 +463,7 @@ export default function AddProjectForm() {
               )}
             />
 
-            {/* Featured */}
+            {/* featured */}
             <FormField
               control={form.control}
               name="isFeatured"
@@ -480,7 +483,7 @@ export default function AddProjectForm() {
               )}
             />
 
-            {/* Submit Button */}
+            {/* submit button */}
             <Button
               type="submit"
               className="w-full bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"
