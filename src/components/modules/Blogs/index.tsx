@@ -38,6 +38,8 @@ import Image from "next/image";
 import moment from "moment-timezone";
 import Link from "next/link";
 import { TBlog } from "@/app/types";
+import { deleteBlogById } from "@/app/services/Blog";
+import { toast } from "sonner";
 
 export default function ManageBlog({ blogs }: { blogs: TBlog[] }) {
   // Table states
@@ -49,7 +51,19 @@ export default function ManageBlog({ blogs }: { blogs: TBlog[] }) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  //   console.log(blogs);
+  // delete a project
+  const handleDeleteBlog = async (id: string) => {
+    try {
+      const response = await deleteBlogById(id);
+      if (response?.success) {
+        toast.success(response?.message);
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wrong!");
+    }
+  };
 
   const columns: ColumnDef<TBlog>[] = [
     {
@@ -142,7 +156,10 @@ export default function ManageBlog({ blogs }: { blogs: TBlog[] }) {
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                onClick={() => handleDeleteBlog(blog?._id)}
+                className="cursor-pointer"
+              >
                 <FaTrash className="mr-2 text-red-600" />
                 Delete
               </DropdownMenuItem>
