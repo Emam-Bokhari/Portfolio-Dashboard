@@ -13,7 +13,8 @@ export const middleware = async (request: NextRequest) => {
             return NextResponse.next()
         } else {
             return NextResponse.redirect(
-                new URL(`http://localhost:3000/login`, request.url)
+                // new URL(`http://localhost:3000/login`, request.url)
+                new URL(`https://portfolio-dashboard-eta-six.vercel.app/login`, request.url)
             )
         }
     }
