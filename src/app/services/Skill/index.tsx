@@ -16,6 +16,23 @@ export const getAllSkills = async () => {
   }
 };
 
+export const getSkillById = async (id: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/skills/${id}`,
+      {
+        next: {
+          tags: ["SKILL"],
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
+
 export const addSkill = async (blogData: any) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/skills`, {
@@ -70,6 +87,7 @@ export const deleteSkillById = async (id: string) => {
     );
     revalidateTag("SKILL");
     const data = await res.json();
+    console.log(data);
     return data;
   } catch (error: any) {
     throw new Error(error);

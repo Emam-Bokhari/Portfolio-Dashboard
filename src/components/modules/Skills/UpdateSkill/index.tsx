@@ -18,21 +18,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Fragment } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { skillSchema } from "./skill.validation";
-import { addSkill } from "@/app/services/Skill";
-import { toast } from "sonner";
 
-export default function AddSkillForm() {
+import { updateSkillById } from "@/app/services/Skill";
+import { toast } from "sonner";
+import { TSkill } from "@/app/types";
+
+export default function UpdateSkillForm({ skill }: { skill: TSkill }) {
   const form = useForm({
-    resolver: zodResolver(skillSchema),
     defaultValues: {
-      icon: "",
-      name: "",
-      description: "",
-      category: "",
+      icon: skill?.icon || "",
+      name: skill?.name || "",
+      description: skill?.description || "",
+      category: skill?.category || "",
     },
   });
 
@@ -49,7 +48,7 @@ export default function AddSkillForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const response = await addSkill(data);
+      const response = await updateSkillById(skill?._id, data);
 
       if (response?.success) {
         toast.success(response?.message);
@@ -78,7 +77,11 @@ export default function AddSkillForm() {
                         Icon URL <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Enter icon URL" />
+                        <Input
+                          {...field}
+                          value={field.value || ""}
+                          placeholder="Enter icon URL"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -95,7 +98,11 @@ export default function AddSkillForm() {
                         Name <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input {...field} placeholder="Enter your skill name" />
+                        <Input
+                          {...field}
+                          value={field.value || ""}
+                          placeholder="Enter your skill name"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -153,6 +160,7 @@ export default function AddSkillForm() {
                       <FormControl>
                         <Input
                           {...field}
+                          value={field.value || ""}
                           placeholder="Enter skill description"
                         />
                       </FormControl>
@@ -170,7 +178,7 @@ export default function AddSkillForm() {
               className="w-full  bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"
               disabled={isSubmitting}
             >
-              Add Skill
+              Update Skill
             </Button>
           </div>
         </form>
