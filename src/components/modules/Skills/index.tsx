@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 import {
   ColumnDef,
@@ -37,12 +37,11 @@ import {
 import Image from "next/image";
 import moment from "moment-timezone";
 import Link from "next/link";
-import { TBlog, TSkill } from "@/app/types";
+import { TSkill } from "@/app/types";
 import { toast } from "sonner";
 import { deleteSkillById } from "@/app/services/Skill";
 
 export default function ManageSkill({ skills }: { skills: TSkill[] }) {
-  // Table states
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -51,11 +50,11 @@ export default function ManageSkill({ skills }: { skills: TSkill[] }) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
-  // delete a project
+  // delete a skill
   const handleDeleteSkill = async (id: string) => {
     try {
       const response = await deleteSkillById(id);
-      console.log(response);
+
       if (response?.success) {
         toast.success(response?.message);
       } else {
@@ -66,7 +65,7 @@ export default function ManageSkill({ skills }: { skills: TSkill[] }) {
     }
   };
 
-  const columns: ColumnDef<TBlog>[] = [
+  const columns: ColumnDef<TSkill>[] = [
     {
       accessorKey: "icon",
       header: "Icon",

@@ -75,7 +75,7 @@ export default function ProjectDetails({ project }: { project: TProject }) {
             {project?.projectRole}
           </p>
         </div>
-        {/*  Project goals & objectives */}
+        {/*  project goals & objectives */}
         {project?.projectGoals && (
           <div>
             <h3 className="text-[#8750F7] text-xl font-medium">
@@ -86,7 +86,7 @@ export default function ProjectDetails({ project }: { project: TProject }) {
             </p>
           </div>
         )}
-        {/*  Challenges Faced:*/}
+        {/*  challenges faced*/}
         {project?.challengesFaced && (
           <div>
             <h3 className="text-[#8750F7] text-xl font-medium">
@@ -98,7 +98,7 @@ export default function ProjectDetails({ project }: { project: TProject }) {
           </div>
         )}
 
-        {/*  Solution/Outcome*/}
+        {/*  solution/outcome*/}
         {project?.solution && (
           <div>
             <h3 className="text-[#8750F7] text-xl font-medium">
@@ -110,7 +110,7 @@ export default function ProjectDetails({ project }: { project: TProject }) {
           </div>
         )}
 
-        {/*  Solution/Outcome*/}
+        {/*  future improvements*/}
         {project?.futureImprovements && (
           <div>
             <h3 className="text-[#8750F7] text-xl font-medium">
@@ -121,7 +121,7 @@ export default function ProjectDetails({ project }: { project: TProject }) {
             </p>
           </div>
         )}
-        {/*  Security Considerations*/}
+        {/*  security considerations*/}
         {project?.securityConsiderations && (
           <div>
             <h3 className="text-[#8750F7] text-xl font-medium">

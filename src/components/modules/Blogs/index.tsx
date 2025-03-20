@@ -42,7 +42,6 @@ import { deleteBlogById } from "@/app/services/Blog";
 import { toast } from "sonner";
 
 export default function ManageBlog({ blogs }: { blogs: TBlog[] }) {
-  // Table states
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

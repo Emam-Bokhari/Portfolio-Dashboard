@@ -23,7 +23,7 @@ export default function BlogDetails({ blog }: { blog: TBlog }) {
   return (
     <Fragment>
       <div className="mt-10  space-y-4">
-        {/*  Image */}
+        {/*  image */}
         <div className="h-[600px]">
           <Image
             src={blog?.thumbnail}
