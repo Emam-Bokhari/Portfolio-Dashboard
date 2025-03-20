@@ -1,4 +1,4 @@
-import AddProjectForm from "@/components/modules/Projects/AddProject";
+import AddBlogForm from "@/components/modules/Blogs/AddBlog";
 import SectionTitle from "@/components/shared/sectionTitle";
 
 import { Fragment } from "react";
@@ -8,9 +8,9 @@ export default function CreateProjectPage() {
     <Fragment>
       <div>
         {/* section title */}
-        <SectionTitle title="Create Project" />
+        <SectionTitle title="Create Blog" />
         <div className="mt-4">
-          <AddProjectForm />
+          <AddBlogForm />
         </div>
       </div>
     </Fragment>
