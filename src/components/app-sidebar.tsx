@@ -1,5 +1,5 @@
 "use client";
-import { LayoutDashboard, LogOut, Settings } from "lucide-react";
+import { Award, Book, Folder, Home, LogOut, Settings } from "lucide-react";
 import logo from "@/app/assets/Logo.png";
 import {
   Sidebar,
@@ -9,13 +9,7 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FilePlus,
-  FolderKanban,
-  Edit,
-  BookOpenText,
-  Users,
-} from "lucide-react";
+import { FilePlus, Edit, Users } from "lucide-react";
 import { Button } from "./ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import SidebarGroupComponent from "./sideBarGroupComponent";
@@ -28,7 +22,7 @@ const application = [
   {
     title: "Home",
     url: "/",
-    icon: LayoutDashboard,
+    icon: Home,
   },
 ];
 
@@ -41,7 +35,20 @@ const project = [
   {
     title: "Projects",
     url: "/projects",
-    icon: FolderKanban,
+    icon: Folder,
+  },
+];
+
+const skill = [
+  {
+    title: "Create Skill",
+    url: "/skills/create-skill",
+    icon: FilePlus,
+  },
+  {
+    title: "Skills",
+    url: "/skills",
+    icon: Award,
   },
 ];
 
@@ -54,7 +61,7 @@ const blog = [
   {
     title: "Blogs",
     url: "/blogs",
-    icon: BookOpenText,
+    icon: Book,
   },
 ];
 
@@ -101,6 +108,11 @@ export function AppSidebar({
         <SidebarGroupComponent
           label="Project"
           items={project}
+          pathName={pathName}
+        />
+        <SidebarGroupComponent
+          label="Skill"
+          items={skill}
           pathName={pathName}
         />
         <SidebarGroupComponent label="Blog" items={blog} pathName={pathName} />
