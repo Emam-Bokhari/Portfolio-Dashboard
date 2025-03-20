@@ -1,7 +1,6 @@
 "use client";
 import { LayoutDashboard, LogOut, Settings } from "lucide-react";
 import logo from "@/app/assets/Logo.png";
-
 import {
   Sidebar,
   SidebarContent,
@@ -10,7 +9,6 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-
 import {
   FilePlus,
   FolderKanban,
@@ -19,10 +17,10 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "./ui/button";
-
-import { usePathname } from "next/navigation";
-import { ModeToggle } from "./shared/modeToggle";
+import { usePathname, useRouter } from "next/navigation";
 import SidebarGroupComponent from "./sideBarGroupComponent";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { logoutFromCookie } from "@/app/services/Auth";
 
 // menu items
 
@@ -68,9 +66,19 @@ const contact = [
   },
 ];
 
-export function AppSidebar() {
-  // console.log(session);
+export function AppSidebar({
+  user,
+}: {
+  user: { email: string; exp: number; iat: number };
+}) {
+  const router = useRouter();
   const pathName = usePathname();
+
+  const handleLogout = async () => {
+    await logoutFromCookie();
+    router.push("/login");
+  };
+
   return (
     <Sidebar className="bg-[#140C1C] border-[#27272A]">
       <SidebarHeader className="bg-[#140C1C]">
@@ -105,17 +113,13 @@ export function AppSidebar() {
       <SidebarFooter className="border-t border-gray-700 p-3 bg-[#140C1C]">
         {/* user info */}
         <div className="flex items-center gap-3">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center text-lg font-semibold text-gray-600">
-            <Image
-              src="https://placehold.co/300"
-              alt="Image"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
+          <Avatar>
+            <AvatarImage src="https://github.com/shadcn.png" alt="avatar" />
+            <AvatarFallback>ADMIN</AvatarFallback>
+          </Avatar>
           <div className="text-white text-sm">
-            <p className="font-medium text-white">user name</p>
-            <p className="text-[11px] text-gray-400">user email</p>
+            <p className="font-medium text-white">Moshfiqur Rahman</p>
+            <p className="text-[11px] text-gray-400">{user?.email}</p>
           </div>
         </div>
 
@@ -123,22 +127,27 @@ export function AppSidebar() {
         <div className="mt-3 flex justify-between">
           {/* theme toggle */}
 
-          <ModeToggle />
-
           {/* settings */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-white hover:bg-gray-800"
-          >
-            <Settings className="w-5 h-5" />
-          </Button>
+          <div>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-white hover:bg-gray-800"
+            >
+              <Settings className="w-5 h-5" />
+            </Button>
+          </div>
 
           {/* logout */}
-          <Button className="bg-[#8750F7] hover:bg-[#733DD6] text-white flex items-center gap-2">
-            <LogOut className="w-5 h-5" />
-            Log Out
-          </Button>
+          <div className="flex-1 ">
+            <Button
+              onClick={handleLogout}
+              className="bg-[#8750F7] hover:bg-[#733DD6] text-white flex items-center gap-2 w-full cursor-pointer"
+            >
+              <LogOut />
+              Log Out
+            </Button>
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>

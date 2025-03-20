@@ -22,5 +22,15 @@ export const middleware = async (request: NextRequest) => {
 export const config = {
     matcher: [
         "/",
+        "/projects",
+        "/projects/:page",
+        "/projects/add-project",
+        "/projects/update-project",
+        "/blogs",
+        "/blogs/:page",
+        "/blogs/add-project",
+        "/blogs/update-project",
+        "/contacts",
+        "/contacts/:page",
     ]
 }

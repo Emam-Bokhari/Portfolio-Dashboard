@@ -4,12 +4,15 @@ import Image from "next/image";
 import DhakaTime from "@/lib/DhakaTime";
 import CurrentDate from "@/lib/CurrentDate";
 import Greeting from "@/lib/Gretting";
+import ManageProject from "@/components/modules/Projects";
+import { getAllProjects } from "../services/Project";
+import ManageContact from "@/components/modules/Contacts";
+import { getAllContacts } from "../services/Contact";
 
-// import ContactTable from "@/components/dashboard/DashboardContactComponent/ContactTable";
-// import ProjectTable from "@/components/dashboard/DashboardProjectComponent/ProjectTable";
-// import DashboardPieChart from "@/components/dashboard/DashboardHomeComponent/DashboardPieChart";
-
-export default function DashboardHomePage() {
+export default async function DashboardHomePage() {
+  const { data } = await getAllProjects();
+  const projects = data ?? [];
+  const { data: contacts } = await getAllContacts();
   return (
     <Fragment>
       <div className="grid grid-cols-1 xl:grid-cols-[70%,30%] gap-4">
@@ -50,18 +53,13 @@ export default function DashboardHomePage() {
             </div>
           </div>
         </div>
-
-        {/* pie chart */}
-        {/* <div>
-          <DashboardPieChart />
-        </div> */}
       </div>
 
       {/* card */}
-      {/* <div className="flex flex-col xl:flex-row gap-5 ">
-        <ProjectTable />
-        <ContactTable />
-      </div> */}
+      <div className="flex flex-col xl:flex-row gap-5 ">
+        <ManageProject projects={projects} />
+        <ManageContact contacts={contacts} />
+      </div>
     </Fragment>
   );
 }
