@@ -41,7 +41,6 @@ import { deleteProjectById } from "@/app/services/Project";
 import { toast } from "sonner";
 
 export default function ManageProject({ projects }: { projects: TProject[] }) {
-  // Table states
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -133,7 +132,6 @@ export default function ManageProject({ projects }: { projects: TProject[] }) {
       enableHiding: false,
       cell: ({ row }) => {
         const project = row.original;
-        // console.log(project, "original");
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

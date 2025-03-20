@@ -24,8 +24,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { skillSchema } from "./skill.validation";
 import { addSkill } from "@/app/services/Skill";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function AddSkillForm() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(skillSchema),
     defaultValues: {
@@ -53,6 +55,7 @@ export default function AddSkillForm() {
 
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/skills");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -104,7 +107,7 @@ export default function AddSkillForm() {
               </div>
             </div>
 
-            {/* Category and description */}
+            {/* category and description */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -163,7 +166,7 @@ export default function AddSkillForm() {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* submit button */}
 
             <Button
               type="submit"

@@ -17,8 +17,10 @@ import { toast } from "sonner";
 import Tiptap from "../AddBlog/Tiptap";
 import { TBlog } from "@/app/types";
 import { updateBlogById } from "@/app/services/Blog";
+import { useRouter } from "next/navigation";
 
 export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       title: blog?.title || "",
@@ -38,9 +40,9 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const response = await updateBlogById(blog?._id, data);
-      console.log(response);
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/blogs");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -54,7 +56,7 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-4">
-            {/* Title and Thumbnail */}
+            {/* title and thumbnail */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -95,7 +97,7 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
               </div>
             </div>
 
-            {/* Category and Author Name */}
+            {/* category and author name */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -136,7 +138,7 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
               </div>
             </div>
 
-            {/* Introduction */}
+            {/* introduction */}
             <FormField
               control={form.control}
               name="introduction"
@@ -178,7 +180,7 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
               )}
             />
 
-            {/* Tags */}
+            {/* tags */}
             <FormField
               control={form.control}
               name="tags"
@@ -204,13 +206,13 @@ export default function UpdateBlogForm({ blog }: { blog: TBlog }) {
               )}
             />
 
-            {/* Submit Button */}
+            {/* submit button */}
             <Button
               type="submit"
               className="w-full bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"
               disabled={isSubmitting}
             >
-              Update Blog
+              {isSubmitting ? "Saving" : "Update Blog"}
             </Button>
           </div>
         </form>

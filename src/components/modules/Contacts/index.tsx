@@ -41,7 +41,6 @@ import { deleteContactById } from "@/app/services/Contact";
 import { toast } from "sonner";
 
 export default function ManageContact({ contacts }: { contacts: TContact[] }) {
-  // Table states
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []

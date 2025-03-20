@@ -24,8 +24,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { updateSkillById } from "@/app/services/Skill";
 import { toast } from "sonner";
 import { TSkill } from "@/app/types";
+import { useRouter } from "next/navigation";
 
 export default function UpdateSkillForm({ skill }: { skill: TSkill }) {
+  const router = useRouter();
   const form = useForm({
     defaultValues: {
       icon: skill?.icon || "",
@@ -52,6 +54,7 @@ export default function UpdateSkillForm({ skill }: { skill: TSkill }) {
 
       if (response?.success) {
         toast.success(response?.message);
+        router.push("/skills");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -111,7 +114,7 @@ export default function UpdateSkillForm({ skill }: { skill: TSkill }) {
               </div>
             </div>
 
-            {/* Category and description */}
+            {/* category and description */}
             <div className="flex flex-col xl:flex-row gap-5">
               <div className="flex-1">
                 <FormField
@@ -171,14 +174,14 @@ export default function UpdateSkillForm({ skill }: { skill: TSkill }) {
               </div>
             </div>
 
-            {/* Submit Button */}
+            {/* submit button */}
 
             <Button
               type="submit"
               className="w-full  bg-[#8750F7] hover:bg-[#733DD6] text-white cursor-pointer"
               disabled={isSubmitting}
             >
-              Update Skill
+              {isSubmitting ? "Saving" : "Update Skill"}
             </Button>
           </div>
         </form>
