@@ -64,7 +64,8 @@ export default function AddProjectForm() {
     { value: "typescript", label: "Typescript" },
     { value: "react", label: "React" },
     { value: "nextJs", label: "Next.js" },
-    { value: "mongodb", label: "Mongodb" },
+    { value: "redux", label: "Redux" },
+    { value: "mongodb", label: "MongoDB" },
     { value: "mongoose", label: "Mongoose" },
     { value: "prisma", label: "Prisma" },
     { value: "postgreSql", label: "PostgreSQL" },
@@ -72,7 +73,7 @@ export default function AddProjectForm() {
     { value: "bootstrap", label: "Bootstrap" },
     { value: "shadcnUi", label: "Shadcn/Ui" },
     { value: "antDesign", label: "Ant Design" },
-    { value: "materialUi", label: "Materia lUi" },
+    { value: "materialUi", label: "Material Ui" },
     { value: "jwt", label: "Json Web Token" },
     { value: "other", label: "other" },
   ];
