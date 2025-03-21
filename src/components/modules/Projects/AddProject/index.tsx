@@ -72,7 +72,7 @@ export default function AddProjectForm() {
     { value: "bootstrap", label: "Bootstrap" },
     { value: "shadcnUi", label: "Shadcn/Ui" },
     { value: "antDesign", label: "Ant Design" },
-    { value: "materialUi", label: "MaterialUi" },
+    { value: "materialUi", label: "Materia lUi" },
     { value: "jwt", label: "Json Web Token" },
     { value: "other", label: "other" },
   ];
