@@ -6,13 +6,11 @@ import CurrentDate from "@/lib/CurrentDate";
 import Greeting from "@/lib/Gretting";
 import ManageProject from "@/components/modules/Projects";
 import { getAllProjects } from "../services/Project";
-import ManageContact from "@/components/modules/Contacts";
-import { getAllContacts } from "../services/Contact";
 
 export default async function DashboardHomePage() {
   const { data } = await getAllProjects();
   const projects = data ?? [];
-  const { data: contacts } = await getAllContacts();
+
   return (
     <Fragment>
       <div className="grid grid-cols-1 xl:grid-cols-[70%,30%] gap-4">
@@ -58,7 +56,6 @@ export default async function DashboardHomePage() {
       {/* card */}
       <div className="flex flex-col xl:flex-row gap-5 ">
         <ManageProject projects={projects} />
-        <ManageContact contacts={contacts} />
       </div>
     </Fragment>
   );
