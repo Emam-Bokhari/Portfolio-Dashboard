@@ -115,16 +115,21 @@ export default function ManageProject({ projects }: { projects: TProject[] }) {
     {
       accessorKey: "frontendSourceCode",
       header: "Frontend Repo Link",
-      cell: ({ row }) => (
-        <a
-          href={row.getValue("frontendSourceCode")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 underline"
-        >
-          Visit
-        </a>
-      ),
+      cell: ({ row }) => {
+        const frontendRepoLink = row.getValue("frontendSourceCode");
+        return frontendRepoLink ? (
+          <a
+            href={frontendRepoLink as string}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 underline"
+          >
+            Visit
+          </a>
+        ) : (
+          <span className="text-gray-500">N/A</span>
+        );
+      },
     },
     {
       id: "actions",

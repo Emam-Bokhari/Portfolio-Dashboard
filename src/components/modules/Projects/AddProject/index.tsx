@@ -314,12 +314,10 @@ export default function AddProjectForm() {
                   name="frontendSourceCode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>
-                        Frontend Source Code{" "}
-                        <span className="text-red-500">*</span>
-                      </FormLabel>
+                      <FormLabel>Frontend Source Code</FormLabel>
                       <FormControl>
                         <Input
+                          type="url"
                           {...field}
                           placeholder="Enter frontend source code URL"
                         />

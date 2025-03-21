@@ -10,7 +10,7 @@ export const projectSchema = z.object({
     solution: z.string().optional(),
     keyFeatures: z.array(z.string()).min(1, "Enter at least one key feature"),
     liveLink: z.string().url("Invalid URL format"),
-    frontendSourceCode: z.string().url("Invalid URL format"),
+    frontendSourceCode: z.string().optional(),
     backendSourceCode: z.string().optional(),
     apiDocumentation: z.string().optional(),
     projectGoals: z.string().optional(),
